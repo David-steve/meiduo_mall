@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 from django_redis.cache import RedisCache
 
@@ -127,6 +127,60 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://:123456@vm1:6379",
+        "LOCATION": "redis://:123456@vm1:6379/0",
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    },
+    "session": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://:123456@vm1:6379/1",
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
     }
+}
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "session"
+
+# 日志配置
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': ' [{module}] {asctime} {levelname} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+        'simple': {
+            # 日志打印格式
+            'format': '[{module}] {asctime} {levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': 'log/meiduo.log',
+            'encoding': 'utf-8',
+            # 指定formatter
+            'formatter': 'simple'
+        },
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console', 'file'],
+        'level': 'DEBUG',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+            'propagate': False,
+        },
+    },
 }
