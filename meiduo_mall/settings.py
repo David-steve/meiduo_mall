@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'meiduo_mall.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': 'vm1',
+        'PORT': '3306',
+        'USER': 'root',
+        'PASSWORD': '123456',
+        'NAME': 'meiduo_mall',
     }
 }
 
