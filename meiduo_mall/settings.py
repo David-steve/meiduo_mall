@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-kj7eb05&$0tdoa&#@c8y0c!@b12#3gw)wv0@b2z9#ar$mqd+s4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["www.meiduo.com"]
 
 # Application definition
 
@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'apps.users',
 ]
 
 MIDDLEWARE = [
@@ -100,6 +101,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'users.User'
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -163,7 +166,7 @@ LOGGING = {
         'file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': 'log/meiduo.log',
+            'filename': os.path.join(BASE_DIR, 'log/meiduo.log'),
             'encoding': 'utf-8',
             # 指定formatter
             'formatter': 'simple'
