@@ -101,6 +101,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# 替换系统的 user 模块
 AUTH_USER_MODEL = 'users.User'
 
 # Internationalization
@@ -158,7 +159,7 @@ LOGGING = {
         },
         'simple': {
             # 日志打印格式
-            'format': '[{module}] {asctime} {levelname} {message}',
+            'format': '[{module}] {asctime} {levelname} \t{message}',
             'style': '{',
         },
     },
@@ -173,6 +174,8 @@ LOGGING = {
         },
         'console': {
             'class': 'logging.StreamHandler',
+            # 指定formatter
+            'formatter': 'simple'
         },
     },
     'root': {
@@ -182,6 +185,7 @@ LOGGING = {
     'loggers': {
         'django': {
             'handlers': ['console'],
+            # 获取环境变量中的日志等级，默认为info
             'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
             'propagate': False,
         },
