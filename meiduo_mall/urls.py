@@ -20,10 +20,11 @@ from django.http import HttpResponse
 from django.urls import path, include
 
 
+# 测试logger用
 def log(request):
     logger = logging.getLogger(__name__)
     content = request.GET
-    print(content)
+
     name = content["name"]
     logger.debug(f"{name} 登录网站")
     logger.info(f"{name} 退出网站")
@@ -36,4 +37,5 @@ def log(request):
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('log/', log),
+    path('', include('apps.users.urls'))
 ]
