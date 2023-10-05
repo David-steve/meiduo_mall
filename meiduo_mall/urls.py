@@ -17,7 +17,11 @@ import logging
 
 from django.contrib import admin
 from django.http import HttpResponse
-from django.urls import path, include
+from django.urls import path, include, register_converter
+
+from utils.converters import UserNameConverters
+
+register_converter(UserNameConverters, 'username_converter')
 
 
 # 测试logger用
