@@ -198,7 +198,7 @@ LOGGING = {
 
 CORS_ALLOWED_ORIGINS = [
     # 添加允许的域名
-    'http://www.meiduo.com:1234',
+    'http://www.meiduo.com:8080',
 ]
 
 # 允许跨域时携带Cookie
